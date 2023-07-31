@@ -1,0 +1,62 @@
+@model CourseSystem.Models.ViewModels.KullaniciViewModel
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Edit</h1>
+
+<h4>Edit User</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+            <form asp-action="Edit">
+                <hr />
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-floating">
+                    <input asp-for="FirstName" class="form-control" autocomplete="firstname" aria-required="true" />
+                    <label asp-for="FirstName"></label>
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                </div>
+                <div class="form-floating">
+                    <input asp-for="LastName" class="form-control" autocomplete="lastname" aria-required="true" />
+                    <label asp-for="LastName"></label>
+                    <span asp-validation-for="LastName" class="text-danger"></span>
+                </div>
+                <div class="form-floating">
+                    <input asp-for="Username" class="form-control" autocomplete="username" aria-required="true" />
+                    <label asp-for="Username"></label>
+                    <span asp-validation-for="Username" class="text-danger"></span>
+                </div>
+                <div class="form-floating">
+                    <input asp-for="Email" class="form-control" autocomplete="email" aria-required="true" />
+                    <label asp-for="Email"></label>
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-floating">
+                    <input asp-for="Password" class="form-control" autocomplete="password" aria-required="true" />
+                    <label asp-for="Password"></label>
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                @if (ViewBag.SinifId != null)
+                {
+                <div class="form-group">
+                    <label asp-for="SinifId" class="control-label"></label>
+                    <select asp-for="SinifId" class="form-control" asp-items="ViewBag.SinifId"></select>
+                    <span asp-validation-for="SinifId" class="text-danger"></span>
+                </div>
+                }
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
