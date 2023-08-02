@@ -19,7 +19,7 @@ namespace CourseSystem.Migrations
                 .HasAnnotation("ProductVersion", "6.0.19")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("CourseSystem.Models.Kullanici", b =>
+            modelBuilder.Entity("CourseSystem.Models.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("varchar(255)");
@@ -45,6 +45,9 @@ namespace CourseSystem.Migrations
                     b.Property<string>("FullName")
                         .IsRequired()
                         .HasColumnType("longtext");
+
+                    b.Property<Guid?>("GradeId")
+                        .HasColumnType("char(36)");
 
                     b.Property<string>("LastName")
                         .IsRequired()
@@ -76,9 +79,6 @@ namespace CourseSystem.Migrations
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("longtext");
 
-                    b.Property<Guid?>("SinifId")
-                        .HasColumnType("char(36)");
-
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("tinyint(1)");
 
@@ -95,10 +95,29 @@ namespace CourseSystem.Migrations
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex");
 
-                    b.ToTable("AspNetUsers", (string)null);
+                    b.ToTable("Users", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "8e445865-a24d-4543-a6c6-9443d048cdb9",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "a4d94644-d98a-4af3-be6a-2c17fc873806",
+                            EmailConfirmed = false,
+                            FirstName = "ADMIN",
+                            FullName = "ADMIN ADMIN",
+                            LastName = "ADMIN",
+                            LockoutEnabled = false,
+                            NormalizedUserName = "MYUSER",
+                            PasswordHash = "AQAAAAEAACcQAAAAELFAe27vDyNp5/fEOBYomT87wNkFU7nG2OkX65VX4ShalItEl3zdcl8rgx03eKtYYA==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "b69616b2-d551-4ff8-8340-7f9ab72fdf66",
+                            TwoFactorEnabled = false,
+                            UserName = "myuser"
+                        });
                 });
 
-            modelBuilder.Entity("CourseSystem.Models.Icerik", b =>
+            modelBuilder.Entity("CourseSystem.Models.Content", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -107,20 +126,20 @@ namespace CourseSystem.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("longtext");
 
-                    b.Property<bool>("Is_Homework")
+                    b.Property<string>("HomeworkUrl")
+                        .HasColumnType("longtext");
+
+                    b.Property<bool>("IsHomework")
                         .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<string>("Pdf_Url")
+                    b.Property<string>("SlideUrl")
                         .HasColumnType("longtext");
 
-                    b.Property<string>("Slide_Url")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Video_Url")
+                    b.Property<string>("VideoUrl")
                         .HasColumnType("longtext");
 
                     b.HasKey("Id");
@@ -128,7 +147,7 @@ namespace CourseSystem.Migrations
                     b.ToTable("Contents");
                 });
 
-            modelBuilder.Entity("CourseSystem.Models.Ders", b =>
+            modelBuilder.Entity("CourseSystem.Models.Course", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -143,7 +162,7 @@ namespace CourseSystem.Migrations
                     b.ToTable("Courses");
                 });
 
-            modelBuilder.Entity("CourseSystem.Models.DersIcerik", b =>
+            modelBuilder.Entity("CourseSystem.Models.CourseContent", b =>
                 {
                     b.Property<Guid>("CourseId")
                         .HasColumnType("char(36)")
@@ -163,28 +182,31 @@ namespace CourseSystem.Migrations
                     b.ToTable("CourseContents");
                 });
 
-            modelBuilder.Entity("CourseSystem.Models.DersSinif", b =>
+            modelBuilder.Entity("CourseSystem.Models.CourseGrade", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
+                    b.Property<string>("CourseGradeName")
+                        .HasColumnType("longtext");
+
                     b.Property<Guid>("CourseId")
                         .HasColumnType("char(36)");
 
-                    b.Property<Guid>("SinifId")
+                    b.Property<Guid>("GradeId")
                         .HasColumnType("char(36)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CourseId");
 
-                    b.HasIndex("SinifId");
+                    b.HasIndex("GradeId");
 
-                    b.ToTable("DersSinif");
+                    b.ToTable("CourseGrades");
                 });
 
-            modelBuilder.Entity("CourseSystem.Models.Sinif", b =>
+            modelBuilder.Entity("CourseSystem.Models.Grade", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -196,24 +218,24 @@ namespace CourseSystem.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Sinifs");
+                    b.ToTable("Grades");
                 });
 
-            modelBuilder.Entity("CourseSystem.Models.OgretmenOgret", b =>
+            modelBuilder.Entity("CourseSystem.Models.TeacherCourse", b =>
                 {
                     b.Property<string>("TeacherId")
                         .HasColumnType("varchar(255)")
                         .HasColumnOrder(1);
 
-                    b.Property<Guid>("CourseSinifId")
+                    b.Property<Guid>("CourseGradeId")
                         .HasColumnType("char(36)")
                         .HasColumnOrder(2);
 
-                    b.HasKey("TeacherId", "CourseSinifId");
+                    b.HasKey("TeacherId", "CourseGradeId");
 
-                    b.HasIndex("CourseSinifId");
+                    b.HasIndex("CourseGradeId");
 
-                    b.ToTable("TeacherTeaches");
+                    b.ToTable("TeacherCourses");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -239,7 +261,16 @@ namespace CourseSystem.Migrations
                         .IsUnique()
                         .HasDatabaseName("RoleNameIndex");
 
-                    b.ToTable("AspNetRoles", (string)null);
+                    b.ToTable("Roles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "2c5e174e-3b0e-446f-86af-483d56fd7210",
+                            ConcurrencyStamp = "4b54583b-ad0f-4c9b-912f-c344f276963a",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -262,7 +293,7 @@ namespace CourseSystem.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("AspNetRoleClaims", (string)null);
+                    b.ToTable("RoleClaims", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -285,7 +316,7 @@ namespace CourseSystem.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AspNetUserClaims", (string)null);
+                    b.ToTable("UserClaims", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
@@ -309,7 +340,7 @@ namespace CourseSystem.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AspNetUserLogins", (string)null);
+                    b.ToTable("UserLogins", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
@@ -324,7 +355,14 @@ namespace CourseSystem.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("AspNetUserRoles", (string)null);
+                    b.ToTable("UserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "8e445865-a24d-4543-a6c6-9443d048cdb9",
+                            RoleId = "2c5e174e-3b0e-446f-86af-483d56fd7210"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -345,62 +383,62 @@ namespace CourseSystem.Migrations
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
-                    b.ToTable("AspNetUserTokens", (string)null);
+                    b.ToTable("UserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("CourseSystem.Models.DersIcerik", b =>
+            modelBuilder.Entity("CourseSystem.Models.CourseContent", b =>
                 {
-                    b.HasOne("CourseSystem.Models.Icerik", "Icerik")
+                    b.HasOne("CourseSystem.Models.Content", "Content")
                         .WithMany("CourseContents")
                         .HasForeignKey("ContentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CourseSystem.Models.Ders", "Ders")
+                    b.HasOne("CourseSystem.Models.Course", "Course")
                         .WithMany("CourseContents")
                         .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Icerik");
+                    b.Navigation("Content");
 
-                    b.Navigation("Ders");
+                    b.Navigation("Course");
                 });
 
-            modelBuilder.Entity("CourseSystem.Models.DersSinif", b =>
+            modelBuilder.Entity("CourseSystem.Models.CourseGrade", b =>
                 {
-                    b.HasOne("CourseSystem.Models.Ders", "Ders")
-                        .WithMany("CourseSinifs")
+                    b.HasOne("CourseSystem.Models.Course", "Course")
+                        .WithMany("CourseGrades")
                         .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CourseSystem.Models.Sinif", "Sinif")
-                        .WithMany("CourseSinifs")
-                        .HasForeignKey("SinifId")
+                    b.HasOne("CourseSystem.Models.Grade", "Grade")
+                        .WithMany("CourseGrades")
+                        .HasForeignKey("GradeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Ders");
+                    b.Navigation("Course");
 
-                    b.Navigation("Sinif");
+                    b.Navigation("Grade");
                 });
 
-            modelBuilder.Entity("CourseSystem.Models.OgretmenOgret", b =>
+            modelBuilder.Entity("CourseSystem.Models.TeacherCourse", b =>
                 {
-                    b.HasOne("CourseSystem.Models.DersSinif", "DersSinif")
-                        .WithMany("Teachers")
-                        .HasForeignKey("CourseSinifId")
+                    b.HasOne("CourseSystem.Models.CourseGrade", "CourseGrade")
+                        .WithMany("TeacherCourses")
+                        .HasForeignKey("CourseGradeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CourseSystem.Models.Kullanici", "Teacher")
-                        .WithMany("CoursesTaught")
+                    b.HasOne("CourseSystem.Models.ApplicationUser", "Teacher")
+                        .WithMany("TeacherCourses")
                         .HasForeignKey("TeacherId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("DersSinif");
+                    b.Navigation("CourseGrade");
 
                     b.Navigation("Teacher");
                 });
@@ -416,7 +454,7 @@ namespace CourseSystem.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("CourseSystem.Models.Kullanici", null)
+                    b.HasOne("CourseSystem.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -425,7 +463,7 @@ namespace CourseSystem.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("CourseSystem.Models.Kullanici", null)
+                    b.HasOne("CourseSystem.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -440,7 +478,7 @@ namespace CourseSystem.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CourseSystem.Models.Kullanici", null)
+                    b.HasOne("CourseSystem.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -449,38 +487,38 @@ namespace CourseSystem.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("CourseSystem.Models.Kullanici", null)
+                    b.HasOne("CourseSystem.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("CourseSystem.Models.Kullanici", b =>
+            modelBuilder.Entity("CourseSystem.Models.ApplicationUser", b =>
                 {
-                    b.Navigation("CoursesTaught");
+                    b.Navigation("TeacherCourses");
                 });
 
-            modelBuilder.Entity("CourseSystem.Models.Icerik", b =>
+            modelBuilder.Entity("CourseSystem.Models.Content", b =>
                 {
                     b.Navigation("CourseContents");
                 });
 
-            modelBuilder.Entity("CourseSystem.Models.Ders", b =>
+            modelBuilder.Entity("CourseSystem.Models.Course", b =>
                 {
                     b.Navigation("CourseContents");
 
-                    b.Navigation("CourseSinifs");
+                    b.Navigation("CourseGrades");
                 });
 
-            modelBuilder.Entity("CourseSystem.Models.DersSinif", b =>
+            modelBuilder.Entity("CourseSystem.Models.CourseGrade", b =>
                 {
-                    b.Navigation("Teachers");
+                    b.Navigation("TeacherCourses");
                 });
 
-            modelBuilder.Entity("CourseSystem.Models.Sinif", b =>
+            modelBuilder.Entity("CourseSystem.Models.Grade", b =>
                 {
-                    b.Navigation("CourseSinifs");
+                    b.Navigation("CourseGrades");
                 });
 #pragma warning restore 612, 618
         }

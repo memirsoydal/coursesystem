@@ -1,0 +1,42 @@
+@model IEnumerable<CourseSystem.Models.TeacherCourse>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Teacher)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CourseGrade)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Teacher.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CourseGrade.CourseGradeName)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { teacherId=item.TeacherId,CourseGradeId=item.CourseGradeId }) |
+                @Html.ActionLink("Details", "Details", new { teacherId=item.TeacherId,CourseGradeId=item.CourseGradeId }) |
+                @Html.ActionLink("Delete", "Delete", new { teacherId=item.TeacherId,CourseGradeId=item.CourseGradeId })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

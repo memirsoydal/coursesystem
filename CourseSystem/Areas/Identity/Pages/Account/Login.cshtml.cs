@@ -20,11 +20,11 @@ namespace CourseSystem.Areas.Identity.Pages.Account
 {
     public class LoginModel : PageModel
     {
-        private readonly SignInManager<Kullanici> _signInManager;
-        private readonly UserManager<Kullanici> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<LoginModel> _logger;
 
-        public LoginModel(SignInManager<Kullanici> signInManager, ILogger<LoginModel> logger, UserManager<Kullanici> userManager)
+        public LoginModel(SignInManager<ApplicationUser> signInManager, ILogger<LoginModel> logger, UserManager<ApplicationUser> userManager)
         {
             _signInManager = signInManager;
             _logger = logger;
@@ -125,11 +125,11 @@ namespace CourseSystem.Areas.Identity.Pages.Account
                     }
                     if (await _userManager.IsInRoleAsync(user, "Teacher"))
                     {
-                        return RedirectToAction("Index", "OgretmenDers");
+                        return RedirectToAction("Index", "TeacherCourses");
                     }
                     if (await _userManager.IsInRoleAsync(user, "Student"))
                     {
-                        return RedirectToAction("Index", "OgrenciDers");
+                        return RedirectToAction("Index", "StudentCourses");
                     }
                     // return LocalRedirect(returnUrl);
                 }

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>@ViewData["Title"] - DersSystem</title>
+    <title>@ViewData["Title"] - CourseSystem</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
     <link rel="stylesheet" href="~/CourseSystem.styles.css" asp-append-version="true"/>
@@ -12,12 +12,12 @@
 <header>
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
         <div class="container-fluid">
-            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">DersSystem</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedIcerik"
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">CourseSystem</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="navbar-collapse collapse d-sm-inline-flex justify-icerik-between">
+            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                 <ul class="navbar-nav flex-grow-1">
                     <li class="nav-item">
                         <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
@@ -26,38 +26,38 @@
                         <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Ders" asp-action="Index">Derss</a>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Course" asp-action="Index">Courses</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Icerik" asp-action="Index">Iceriks</a>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Content" asp-action="Index">Contents</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="DersIcerik" asp-action="Index">Ders Iceriks</a>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="CourseContent" asp-action="Index">Course Contents</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Sinif" asp-action="Index">Sinifs</a>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Grade" asp-action="Index">Grades</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="DersSinif" asp-action="Index">Ders Sinifs</a>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="CourseGrade" asp-action="Index">Course Grades</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">Users</a>
                     </li>
                     <li class="nav-item">
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="KullaniciRol" asp-action="Index">User Roles</a>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="UserRole" asp-action="Index">User Roles</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Rol" asp-action="Index">Roles</a>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Role" asp-action="Index">Roles</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="OgretmenOgret" asp-action="Index">Teach</a>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="TeacherCourse" asp-action="Index">Teach</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="OgretmenDers" asp-action="Index">Teacher Derss</a>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="TeacherCourses" asp-action="Index">Teacher Courses</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="OgrenciDers" asp-action="Index">Student Derss</a>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="StudentCourses" asp-action="Index">Student Courses</a>
                     </li>
                 </ul>
             </div>
@@ -73,7 +73,7 @@
 
 <footer class="border-top footer text-muted">
     <div class="container">
-        &copy; 2023 - DersSystem - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        &copy; 2023 - CourseSystem - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
     </div>
 </footer>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>

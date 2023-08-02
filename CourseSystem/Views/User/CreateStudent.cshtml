@@ -1,4 +1,4 @@
-@model CourseSystem.Models.ViewModels.KullaniciViewModel
+@model CourseSystem.Models.ViewModels.UserViewModel
 @{
     ViewData["Title"] = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -40,8 +40,8 @@
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>            
            <div class="form-group">
-                <label asp-for="SinifId" class="control-label"></label>
-                <select asp-for="SinifId" class ="form-control" asp-items="ViewBag.SinifId"></select>
+                <label asp-for="GradeId" class="control-label"></label>
+                <select asp-for="GradeId" class ="form-control" asp-items="ViewBag.GradeId"></select>
             </div>
             <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Save</button>
         </form>

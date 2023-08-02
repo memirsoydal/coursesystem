@@ -12,7 +12,7 @@ var connectionString = builder.Configuration.GetConnectionString("DbConnection")
 
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseMySQL(connectionString));
 
-builder.Services.AddDefaultIdentity<Kullanici>()
+builder.Services.AddDefaultIdentity<ApplicationUser>()
     .AddDefaultTokenProviders()
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();

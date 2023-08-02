@@ -1,20 +1,20 @@
-@model IEnumerable<CourseSystem.Models.ViewModels.DersViewModel>
+@model IEnumerable<CourseSystem.Models.ViewModels.CourseViewModel>
 
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Ders Dashboard</h1>
+<h1>Course Dashboard</h1>
 
 <table class="table">
     <thead>
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Ders.Name)
+            @Html.DisplayNameFor(model => model.Course.Name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.SinifName)
+            @Html.DisplayNameFor(model => model.GradeName)
         </th>
         <th></th>
     </tr>
@@ -23,13 +23,13 @@
     @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Ders.Id)
+                @Html.DisplayFor(modelItem => item.Course.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.SinifName)
+                @Html.DisplayFor(modelItem => item.GradeName)
             </td>
             <td>
-            <a asp-action="Lectures" asp-route-id="@item.Ders.Id">Lectures</a>
+            <a asp-action="Lectures" asp-route-id="@item.Course.Id">Lectures</a>
             </td>
         </tr>
     }
