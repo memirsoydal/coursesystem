@@ -59,8 +59,12 @@ public class UserController : Controller
     {
         if (ModelState.IsValid)
         {
-            await CreateTempUser(userViewModel, "Admin");
-            return RedirectToAction(nameof(Index));
+            if (await _roleManager.RoleExistsAsync("Admin"))
+            {
+                await CreateTempUser(userViewModel, "Admin");
+                return RedirectToAction(nameof(Index));
+            }
+            ModelState.AddModelError(string.Empty, "Role doesn't exist.");
         }
         return View(userViewModel);
     }
@@ -70,8 +74,12 @@ public class UserController : Controller
     {
         if (ModelState.IsValid)
         {
-            await CreateTempUser(userViewModel, "Teacher");
-            return RedirectToAction(nameof(Index));
+            if (await _roleManager.RoleExistsAsync("Teacher"))
+            {
+                await CreateTempUser(userViewModel, "Teacher");
+                return RedirectToAction(nameof(Index));
+            }
+            ModelState.AddModelError(string.Empty, "Role doesn't exist.");
         }
         return View(userViewModel);
     }
@@ -81,8 +89,12 @@ public class UserController : Controller
     {
         if (ModelState.IsValid)
         {
-            await CreateTempUser(userViewModel, "Student");
-            return RedirectToAction(nameof(Index));
+            if (await _roleManager.RoleExistsAsync("Student"))
+            {
+                await CreateTempUser(userViewModel, "Student");
+                return RedirectToAction(nameof(Index));
+            }
+            ModelState.AddModelError(string.Empty, "Role doesn't exist.");
         }
         return View(userViewModel);
     }

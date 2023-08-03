@@ -102,18 +102,18 @@ namespace CourseSystem.Migrations
                         {
                             Id = "8e445865-a24d-4543-a6c6-9443d048cdb9",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "64c070ea-108e-4da4-a7dd-7412a5df18ab",
+                            ConcurrencyStamp = "09ac972d-5e5f-4c73-8d51-a8f2e28eafdb",
                             EmailConfirmed = false,
-                            FirstName = "ADMIN",
-                            FullName = "ADMIN ADMIN",
+                            FirstName = "SUPER",
+                            FullName = "SUPER ADMIN",
                             LastName = "ADMIN",
                             LockoutEnabled = false,
-                            NormalizedUserName = "MYUSER",
-                            PasswordHash = "AQAAAAEAACcQAAAAENGdrfT1XisfKvIxSJinl6fZcIxeJrcR09aJ8kapGJHVKaTUGnKhe1ht+wZ3dtVFeg==",
+                            NormalizedUserName = "Y3I7152427U3JUA",
+                            PasswordHash = "AQAAAAEAACcQAAAAEPmhyJ44+7gBX3F5A1hyMA7N0kZO+NuL6+gQGUcEUb+paf2AEXtyVvGSOg4ONQOSeg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "7f2bf6f3-9b15-486f-963a-91d3fe7ed52c",
+                            SecurityStamp = "90201687-2741-465a-8aac-240af8740c65",
                             TwoFactorEnabled = false,
-                            UserName = "myuser"
+                            UserName = "Y3I7152427U3JUA"
                         });
                 });
 
@@ -176,6 +176,8 @@ namespace CourseSystem.Migrations
                         .HasColumnType("longtext");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("Courses");
                 });
@@ -285,7 +287,7 @@ namespace CourseSystem.Migrations
                         new
                         {
                             Id = "2c5e174e-3b0e-446f-86af-483d56fd7210",
-                            ConcurrencyStamp = "877a4e94-1e76-49b7-8c2f-d512d42f1399",
+                            ConcurrencyStamp = "5329f350-801a-4d13-a6b3-206a09c0f605",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -404,6 +406,15 @@ namespace CourseSystem.Migrations
                     b.ToTable("UserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("CourseSystem.Models.Course", b =>
+                {
+                    b.HasOne("CourseSystem.Models.Category", "Category")
+                        .WithMany("Courses")
+                        .HasForeignKey("CategoryId");
+
+                    b.Navigation("Category");
+                });
+
             modelBuilder.Entity("CourseSystem.Models.CourseContent", b =>
                 {
                     b.HasOne("CourseSystem.Models.Content", "Content")
@@ -515,6 +526,11 @@ namespace CourseSystem.Migrations
             modelBuilder.Entity("CourseSystem.Models.ApplicationUser", b =>
                 {
                     b.Navigation("TeacherCourses");
+                });
+
+            modelBuilder.Entity("CourseSystem.Models.Category", b =>
+                {
+                    b.Navigation("Courses");
                 });
 
             modelBuilder.Entity("CourseSystem.Models.Content", b =>
