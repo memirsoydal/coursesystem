@@ -121,7 +121,7 @@ namespace CourseSystem.Areas.Identity.Pages.Account
                     var user = await _userManager.FindByNameAsync(Input.Username);
                     if (await _userManager.IsInRoleAsync(user, "Admin"))
                     {
-                        return RedirectToAction("Privacy", "Home");
+                        return RedirectToAction("Index", "Home");
                     }
                     if (await _userManager.IsInRoleAsync(user, "Teacher"))
                     {
