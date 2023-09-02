@@ -119,19 +119,16 @@ namespace CourseSystem.Areas.Identity.Pages.Account
                 {
                     _logger.LogInformation("User logged in.");
                     var user = await _userManager.FindByNameAsync(Input.Username);
-                    if (await _userManager.IsInRoleAsync(user, "Admin"))
+                    var userRoles = await _userManager.GetRolesAsync(user);
+                    if (userRoles.Contains("Admin"))
                     {
-                        return RedirectToAction("Privacy", "Home");
+                        return RedirectToAction("Index", "Home");
                     }
-                    if (await _userManager.IsInRoleAsync(user, "Teacher"))
+                    if (userRoles.Contains("Teacher") || userRoles.Contains("Student"))
                     {
-                        return RedirectToAction("Index", "TeacherCourses");
+                        return RedirectToAction("Index", "Dashboard");
                     }
-                    if (await _userManager.IsInRoleAsync(user, "Student"))
-                    {
-                        return RedirectToAction("Index", "StudentCourses");
-                    }
-                    // return LocalRedirect(returnUrl);
+                    return LocalRedirect(returnUrl);
                 }
                 if (result.RequiresTwoFactor)
                 {
@@ -142,11 +139,8 @@ namespace CourseSystem.Areas.Identity.Pages.Account
                     _logger.LogWarning("User account locked out.");
                     return RedirectToPage("./Lockout");
                 }
-                else
-                {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-                    return Page();
-                }
+                ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                return Page();
             }
 
             // If we got this far, something failed, redisplay form

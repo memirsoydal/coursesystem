@@ -16,8 +16,8 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.14" />
-    <PackageReference Include="MySql.EntityFrameworkCore" Version="6.0.13" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.16" />
+    <PackageReference Include="MySql.EntityFrameworkCore" Version="6.0.16" />
   </ItemGroup>
 
   <ItemGroup>
@@ -27,6 +27,25 @@
     <_ContentIncludedByDefault Remove="Views\TeacherTeach\Edit.cshtml" />
     <_ContentIncludedByDefault Remove="Views\TeacherTeach\Index.cshtml" />
     <_ContentIncludedByDefault Remove="Views\TeacherCourses\Lectures.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AdditionalFiles Include="Areas\Identity\Pages\Account\AccessDenied.cshtml" />
+    <AdditionalFiles Include="Areas\Identity\Pages\Account\Login.cshtml" />
+    <AdditionalFiles Include="Areas\Identity\Pages\Account\Manage\ChangePassword.cshtml" />
+    <AdditionalFiles Include="Areas\Identity\Pages\Account\Manage\_Layout.cshtml" />
+    <AdditionalFiles Include="Areas\Identity\Pages\Account\Manage\_ManageNav.cshtml" />
+    <AdditionalFiles Include="Areas\Identity\Pages\Account\Manage\_StatusMessage.cshtml" />
+    <AdditionalFiles Include="Areas\Identity\Pages\Account\Manage\_ViewImports.cshtml" />
+    <AdditionalFiles Include="Areas\Identity\Pages\Account\_StatusMessage.cshtml" />
+    <AdditionalFiles Include="Areas\Identity\Pages\Account\_ViewImports.cshtml" />
+    <AdditionalFiles Include="Areas\Identity\Pages\_ValidationScriptsPartial.cshtml" />
+    <AdditionalFiles Include="Areas\Identity\Pages\_ViewImports.cshtml" />
+    <AdditionalFiles Include="Areas\Identity\Pages\_ViewStart.cshtml" />
   </ItemGroup>
 
 </Project>

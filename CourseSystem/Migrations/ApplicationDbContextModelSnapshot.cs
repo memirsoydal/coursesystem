@@ -102,19 +102,34 @@ namespace CourseSystem.Migrations
                         {
                             Id = "8e445865-a24d-4543-a6c6-9443d048cdb9",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "a4d94644-d98a-4af3-be6a-2c17fc873806",
+                            ConcurrencyStamp = "dcbc3646-b857-448b-8cf7-7880c7ff3aa3",
                             EmailConfirmed = false,
-                            FirstName = "ADMIN",
-                            FullName = "ADMIN ADMIN",
+                            FirstName = "SUPER",
+                            FullName = "SUPER ADMIN",
                             LastName = "ADMIN",
                             LockoutEnabled = false,
-                            NormalizedUserName = "MYUSER",
-                            PasswordHash = "AQAAAAEAACcQAAAAELFAe27vDyNp5/fEOBYomT87wNkFU7nG2OkX65VX4ShalItEl3zdcl8rgx03eKtYYA==",
+                            NormalizedUserName = "Y3I7152427U3JUA",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHGsfyaFLvJcA2+hefvb0LwyVvoMne7he4DZuszyqf5Q86W3caM7jUCgyky04yDqFg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "b69616b2-d551-4ff8-8340-7f9ab72fdf66",
+                            SecurityStamp = "aa62ef55-48ff-412d-b54e-260a8ebd4457",
                             TwoFactorEnabled = false,
-                            UserName = "myuser"
+                            UserName = "Y3I7152427U3JUA"
                         });
+                });
+
+            modelBuilder.Entity("CourseSystem.Models.Category", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("CourseSystem.Models.Content", b =>
@@ -153,11 +168,16 @@ namespace CourseSystem.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
+                    b.Property<Guid?>("CategoryId")
+                        .HasColumnType("char(36)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("longtext");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("Courses");
                 });
@@ -267,7 +287,7 @@ namespace CourseSystem.Migrations
                         new
                         {
                             Id = "2c5e174e-3b0e-446f-86af-483d56fd7210",
-                            ConcurrencyStamp = "4b54583b-ad0f-4c9b-912f-c344f276963a",
+                            ConcurrencyStamp = "21a4152d-f968-4395-a08c-701fea5588ec",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -386,6 +406,15 @@ namespace CourseSystem.Migrations
                     b.ToTable("UserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("CourseSystem.Models.Course", b =>
+                {
+                    b.HasOne("CourseSystem.Models.Category", "Category")
+                        .WithMany("Courses")
+                        .HasForeignKey("CategoryId");
+
+                    b.Navigation("Category");
+                });
+
             modelBuilder.Entity("CourseSystem.Models.CourseContent", b =>
                 {
                     b.HasOne("CourseSystem.Models.Content", "Content")
@@ -497,6 +526,11 @@ namespace CourseSystem.Migrations
             modelBuilder.Entity("CourseSystem.Models.ApplicationUser", b =>
                 {
                     b.Navigation("TeacherCourses");
+                });
+
+            modelBuilder.Entity("CourseSystem.Models.Category", b =>
+                {
+                    b.Navigation("Courses");
                 });
 
             modelBuilder.Entity("CourseSystem.Models.Content", b =>

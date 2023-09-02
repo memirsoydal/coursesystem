@@ -25,7 +25,7 @@ namespace CourseSystem.Controllers
         public async Task<IActionResult> Index()
         {
               return _context.Courses != null ? 
-                          View(await _context.Courses.ToListAsync()) :
+                          View(await _context.Courses.Include(c => c.Category).ToListAsync()) :
                           Problem("Entity set 'ApplicationDbContext.Courses'  is null.");
         }
 
@@ -50,6 +50,7 @@ namespace CourseSystem.Controllers
         // GET: Courses/Create
         public IActionResult Create()
         {
+            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name");
             return View();
         }
 
@@ -58,7 +59,7 @@ namespace CourseSystem.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name")] Course course)
+        public async Task<IActionResult> Create([Bind("Id,Name, CategoryId")] Course course)
         {
             if (ModelState.IsValid)
             {
@@ -67,6 +68,7 @@ namespace CourseSystem.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name", course.CategoryId);
             return View(course);
         }
 
@@ -83,6 +85,7 @@ namespace CourseSystem.Controllers
             {
                 return NotFound();
             }
+            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name", course.CategoryId);
             return View(course);
         }
 
@@ -91,7 +94,7 @@ namespace CourseSystem.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,Name")] Course course)
+        public async Task<IActionResult> Edit(Guid id, [Bind("Id,Name, CategoryId")] Course course)
         {
             if (id != course.Id)
             {
@@ -118,6 +121,7 @@ namespace CourseSystem.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name", course.CategoryId);
             return View(course);
         }
 

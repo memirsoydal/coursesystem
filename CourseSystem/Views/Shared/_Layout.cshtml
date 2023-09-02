@@ -26,6 +26,9 @@
                         <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Category" asp-action="Index">Categories</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link text-dark" asp-area="" asp-controller="Course" asp-action="Index">Courses</a>
                     </li>
                     <li class="nav-item">
@@ -54,10 +57,7 @@
                         <a class="nav-link text-dark" asp-area="" asp-controller="TeacherCourse" asp-action="Index">Teach</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="TeacherCourses" asp-action="Index">Teacher Courses</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="StudentCourses" asp-action="Index">Student Courses</a>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Dashboard" asp-action="Index">Dashboard</a>
                     </li>
                 </ul>
             </div>
@@ -71,11 +71,12 @@
     </main>
 </div>
 
-<footer class="border-top footer text-muted">
-    <div class="container">
-        &copy; 2023 - CourseSystem - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+<footer class="border-top footer text-muted d-flex justify-content-center align-items-center">
+    <div>
+        &copy; 2023 - CourseSystem
     </div>
 </footer>
+
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="~/js/site.js" asp-append-version="true"></script>

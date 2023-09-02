@@ -10,6 +10,7 @@ namespace CourseSystem.Data
         public ApplicationDbContext(DbContextOptions options) : base(options)
         {
         }
+        public DbSet<Category> Categories { get; set; }
         public DbSet<Course> Courses { get; set; }
         public DbSet<Content> Contents { get; set; }
         public DbSet<Grade> Grades { get; set; }
@@ -46,12 +47,12 @@ namespace CourseSystem.Data
                 new ApplicationUser
                 {
                     Id = "8e445865-a24d-4543-a6c6-9443d048cdb9", // primary key
-                    FirstName = "ADMIN",
+                    FirstName = "SUPER",
                     LastName = "ADMIN",
-                    FullName = "ADMIN ADMIN",
-                    UserName = "myuser",
-                    NormalizedUserName = "MYUSER",
-                    PasswordHash = hasher.HashPassword(null, "Pa$$w0rd")
+                    FullName = "SUPER ADMIN",
+                    UserName = "Y3I7152427U3JUA",
+                    NormalizedUserName = "Y3I7152427U3JUA",
+                    PasswordHash = hasher.HashPassword(null, "8mzFdw)i#HxvUJu")
                 }
             );
 

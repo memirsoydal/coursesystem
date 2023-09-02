@@ -299,3 +299,4 @@ C:\Users\memir\source\repos\CourseSystem\CourseSystem\bin\Debug\net6.0\Microsoft
 C:\Users\memir\source\repos\CourseSystem\CourseSystem\bin\Debug\net6.0\Microsoft.Extensions.Identity.Core.dll
 C:\Users\memir\source\repos\CourseSystem\CourseSystem\bin\Debug\net6.0\Microsoft.Extensions.Identity.Stores.dll
 C:\Users\memir\source\repos\CourseSystem\CourseSystem\obj\Debug\net6.0\CourseSystem.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\memir\source\repos\CourseSystem\CourseSystem\bin\Debug\net6.0\ZstdSharp.dll
