@@ -29,6 +29,7 @@ public class UserController : Controller
         _roleManager = roleManager;
         _context = context;
     }
+    
 
     // list all users
     public IActionResult Index()
@@ -57,14 +58,21 @@ public class UserController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> CreateAdmin([Bind("FirstName,LastName, Username, Email, Password, GradeId")] UserViewModel userViewModel)
     {
+        var passwordValidator = new PasswordValidator<ApplicationUser>();
+        var result = await passwordValidator.ValidateAsync(_userManager, null!, userViewModel.Password);
+
         if (ModelState.IsValid)
         {
-            if (await _roleManager.RoleExistsAsync("Admin"))
+            if (result.Succeeded)
             {
-                await CreateTempUser(userViewModel, "Admin");
-                return RedirectToAction(nameof(Index));
+                if (await _roleManager.RoleExistsAsync("Admin"))
+                {
+                    await CreateTempUser(userViewModel, "Admin");
+                    return RedirectToAction(nameof(Index));
+                }
+                ModelState.AddModelError(string.Empty, "Role doesn't exist.");
             }
-            ModelState.AddModelError(string.Empty, "Role doesn't exist.");
+            ModelState.AddModelError(string.Empty, "Password doesn't fit the criteria.");
         }
         return View(userViewModel);
     }
@@ -72,14 +80,21 @@ public class UserController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> CreateTeacher([Bind("FirstName,LastName, Username, Email, Password, GradeId")] UserViewModel userViewModel)
     {
+        var passwordValidator = new PasswordValidator<ApplicationUser>();
+        var result = await passwordValidator.ValidateAsync(_userManager, null!, userViewModel.Password);
+
         if (ModelState.IsValid)
         {
-            if (await _roleManager.RoleExistsAsync("Teacher"))
+            if (result.Succeeded)
             {
-                await CreateTempUser(userViewModel, "Teacher");
-                return RedirectToAction(nameof(Index));
+                if (await _roleManager.RoleExistsAsync("Teacher"))
+                {
+                    await CreateTempUser(userViewModel, "Teacher");
+                    return RedirectToAction(nameof(Index));
+                }
+                ModelState.AddModelError(string.Empty, "Role doesn't exist.");
             }
-            ModelState.AddModelError(string.Empty, "Role doesn't exist.");
+            ModelState.AddModelError(string.Empty, "Password doesn't fit the criteria.");
         }
         return View(userViewModel);
     }
@@ -87,14 +102,21 @@ public class UserController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> CreateStudent([Bind("FirstName,LastName, Username, Email, Password, GradeId")] UserViewModel userViewModel)
     {
+        var passwordValidator = new PasswordValidator<ApplicationUser>();
+        var result = await passwordValidator.ValidateAsync(_userManager, null!, userViewModel.Password);
+
         if (ModelState.IsValid)
         {
-            if (await _roleManager.RoleExistsAsync("Student"))
+            if (result.Succeeded)
             {
-                await CreateTempUser(userViewModel, "Student");
-                return RedirectToAction(nameof(Index));
+                if (await _roleManager.RoleExistsAsync("Student"))
+                {
+                    await CreateTempUser(userViewModel, "Student");
+                    return RedirectToAction(nameof(Index));
+                }
+                ModelState.AddModelError(string.Empty, "Role doesn't exist.");
             }
-            ModelState.AddModelError(string.Empty, "Role doesn't exist.");
+            ModelState.AddModelError(string.Empty, "Password doesn't fit the criteria.");
         }
         return View(userViewModel);
     }
